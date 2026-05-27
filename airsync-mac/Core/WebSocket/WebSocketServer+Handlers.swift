@@ -193,6 +193,7 @@ extension WebSocketServer {
            let app = dict["app"] as? String,
            let package = dict["package"] as? String {
             let priority = dict["priority"] as? String
+            let contactPhoto = dict["contactPhoto"] as? String
             var actions: [NotificationAction] = []
             if let arr = dict["actions"] as? [[String: Any]] {
                 for a in arr {
@@ -202,7 +203,7 @@ extension WebSocketServer {
                     }
                 }
             }
-            let notif = Notification(title: title, body: body, app: app, nid: nid, package: package, priority: priority, actions: actions)
+            let notif = Notification(title: title, body: body, app: app, nid: nid, package: package, priority: priority, actions: actions, contactPhoto: contactPhoto)
             DispatchQueue.main.async {
                 AppState.shared.addNotification(notif)
             }
