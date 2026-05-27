@@ -37,7 +37,8 @@ struct MockData{
         nid: "23987423984789234",
         package: "sameerasw.airsync",
         priority: "",
-        actions: []
+        actions: [],
+        contactPhoto: nil
     )
 
     static let sampleMusic: DeviceStatus.Music = .init(

@@ -34,10 +34,7 @@
 		B933ED362E3BEC21007393CB /* Exceptions for "airsync-mac" folder in "AirSync" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
-				Configs/Secrets.example.xcconfig,
-				Configs/Secrets.xcconfig,
 				Configs/SelfCompiled.xcconfig,
-				Configs/Shared.xcconfig,
 				Info.plist,
 			);
 			target = B9673B562E35A2A1006D284A /* AirSync */;
@@ -285,7 +282,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 29;
 				DEAD_CODE_STRIPPING = YES;
-				DEVELOPMENT_TEAM = WCB4HTANA6;
+				DEVELOPMENT_TEAM = R63557Q56G;
 				ENABLE_APP_SANDBOX = NO;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
@@ -462,7 +459,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 29;
 				DEAD_CODE_STRIPPING = YES;
-				DEVELOPMENT_TEAM = WCB4HTANA6;
+				DEVELOPMENT_TEAM = R63557Q56G;
 				ENABLE_APP_SANDBOX = NO;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
@@ -511,7 +508,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 29;
 				DEAD_CODE_STRIPPING = YES;
-				DEVELOPMENT_TEAM = WCB4HTANA6;
+				DEVELOPMENT_TEAM = R63557Q56G;
 				ENABLE_APP_SANDBOX = NO;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
