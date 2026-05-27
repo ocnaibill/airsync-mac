@@ -265,6 +265,10 @@ struct SyncSettingsView: View {
                 .sheet(isPresented: $showRemoteSheet) {
                     RemotePermissionView()
                 }
+
+                // 6. Custom Focus Mode
+                headerSection(title: "Custom Focus", icon: "target")
+                SettingsFocusView()
             }
             .padding()
         }

@@ -23,8 +23,9 @@ struct Notification: Codable, Identifiable, Equatable {
     let package: String
     let priority: String?
     let actions: [NotificationAction]
+    let contactPhoto: String?
 
     private enum CodingKeys: String, CodingKey {
-        case title, body, app, nid, package, priority, actions
+        case title, body, app, nid, package, priority, actions, contactPhoto
     }
 }

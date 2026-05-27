@@ -152,6 +152,19 @@ extension WebSocketServer {
         sendMessage(type: "startQuickShare", data: [:])
     }
 
+    func sendFocusUpdate() {
+        let peopleData = AppState.shared.focusPeople.map { person in
+            ["displayName": person.displayName, "identifiers": person.identifiers]
+        }
+        
+        let data: [String: Any] = [
+            "enabled": AppState.shared.isCustomFocusEnabled,
+            "allowedApps": AppState.shared.allowedFocusApps,
+            "focusPeople": peopleData
+        ]
+        sendMessage(type: "focusUpdate", data: data)
+    }
+
     func sendRefreshAdbPortsRequest() {
         sendMessage(type: "refreshAdbPorts", data: [:])
     }
