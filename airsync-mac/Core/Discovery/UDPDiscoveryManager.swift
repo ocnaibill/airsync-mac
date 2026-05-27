@@ -186,8 +186,8 @@ class UDPDiscoveryManager: ObservableObject {
                     // Error ignored for broadcast
                     connection.cancel()
                 }))
-            case .failed(_):
-                // print("[UDP] Broadcast connection failed (from \(sourceIP)): \(error)")
+            case .failed(let error):
+                print("[UDP] Broadcast connection failed (from \(sourceIP)): \(error)")
                 connection.cancel()
             default:
                 break

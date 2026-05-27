@@ -138,6 +138,9 @@ extension WebSocketServer {
         let lastAddresses = lastKnownAdapters.map { $0.address }
         let currentAddresses = adapters.map { $0.address }
         let lastIP = lastKnownIP
+        let currentlyRestarting = isRestarting
+        let hasActiveSessions = !activeSessions.isEmpty
+        let listeningOnAll = isListeningOnAll
         self.lock.unlock()
 
         if currentAddresses != lastAddresses {
@@ -148,11 +151,31 @@ extension WebSocketServer {
             AppState.shared.revalidateNetworkAdapter()
 
             for adapter in adapters {
-                let activeMark = (adapter.address == chosenIP) ? " [ACTIVE]" : ""
+                let activeMark = (chosenIP?.contains(adapter.address) == true) ? " [ACTIVE]" : ""
                 print("[websocket] (network) \(adapter.name) -> \(adapter.address)\(activeMark)")
             }
 
             if let lastIP = lastIP, lastIP != chosenIP {
+                // If we are listening on all interfaces, we don't necessarily need to restart
+                // just because a new interface appeared or one vanished, as long as 0.0.0.0 is used.
+                // We only MUST restart if we are bound to a specific IP or if we have no active sessions
+                // and want to ensure the server is fresh for the new network state.
+                
+                if listeningOnAll && hasActiveSessions {
+                    print("[websocket] (network) IP changed, but skipping restart because we are listening on all interfaces and have active sessions.")
+                    self.lock.lock()
+                    self.lastKnownIP = chosenIP
+                    self.lock.unlock()
+                    DispatchQueue.main.async {
+                        AppState.shared.shouldRefreshQR = true
+                    }
+                    return
+                }
+
+                if currentlyRestarting {
+                    return
+                }
+                
                 print("[websocket] (network) IP changed from \(lastIP) to \(chosenIP ?? "N/A"), restarting WebSocket in 5 seconds")
                 
                 DispatchQueue.main.async {
@@ -163,6 +186,10 @@ extension WebSocketServer {
                 }
                 
                 DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+                    if hasActiveSessions {
+                        print("[websocket] (network) Delaying restart: session still active")
+                        return
+                    }
                     self.stop()
                     self.start(port: Defaults.serverPort)
                 }
